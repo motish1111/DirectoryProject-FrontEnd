@@ -35,6 +35,12 @@ export function personsReducer(
   action: PersonActions.PersonActions
 ) {
   switch (action.type) {
+    case PersonActions.LOAD_PERSONS_SUCCESS:
+      console.log('LOAD_PERSONS_SUCCESS');
+      return {
+        ...state,
+        persons: [...action.payload]
+      };
     case PersonActions.ADD_PERSON:
       return {
         ...state,

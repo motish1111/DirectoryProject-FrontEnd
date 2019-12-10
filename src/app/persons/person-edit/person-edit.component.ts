@@ -71,7 +71,7 @@ export class PersonEditComponent implements OnInit {
           const person = persons.persons[index];
           personName = person.name;
           personEmail = person.email;
-          personDOB = person.dob;
+          personDOB = new Date(person.dob);
           personCountry = person.country;
         });
       });

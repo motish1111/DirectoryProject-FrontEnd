@@ -16,6 +16,8 @@ import { StoreModule } from '@ngrx/store';
 import { personsReducer } from './persons/+state/persons.reducer';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AgePipe } from './age.pipe';
+import { EffectsModule } from '@ngrx/effects';
+import { PersonsEffects } from './persons/+state/persons.effects';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,7 @@ import { AgePipe } from './age.pipe';
     BrowserModule,
     AppRoutingModule,
     StoreModule.forRoot({ persons: personsReducer }),
+    EffectsModule.forRoot([PersonsEffects]),
     ReactiveFormsModule,
     HttpClientModule
   ],

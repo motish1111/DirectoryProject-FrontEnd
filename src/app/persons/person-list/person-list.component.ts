@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { PersonService } from '../person.service';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import * as PersonActions from '../+state/persons.actions';
 import * as PersonsReducer from '../+state/persons.reducer';
 
 @Component({
@@ -21,6 +22,7 @@ export class PersonListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.store.dispatch(new PersonActions.LoadPersons());
     this.persons = this.store.select('persons');
     // this.persons = this.personService.getPersons();
     // this.personService
