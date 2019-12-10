@@ -1,10 +1,10 @@
 import { Action } from '@ngrx/store';
 import { Person } from '../person.model';
 
-export const ADD_PERSON = 'ADD_PERSON';
-export const ADD_PERSONS = 'ADD_PERSONS';
-export const UPDATE_PERSON = 'UPDATE_PERSON';
-export const DELETE_PERSON = 'DELETE_PERSON';
+export const ADD_PERSON = '[Persons] Add Person';
+export const ADD_PERSONS = '[Persons] Add Persons';
+export const UPDATE_PERSON = '[Persons] Update Person';
+export const DELETE_PERSON = '[Persons] Delete Person';
 
 export class AddPersonAction implements Action {
   readonly type = ADD_PERSON;
