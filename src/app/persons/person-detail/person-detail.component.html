@@ -1,0 +1,41 @@
+<div class="row">
+  <div class="col-xs-12">
+    <h1>{{ person.name }}</h1>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="btn-group" appDropdown>
+      <button type="button" class="btn btn-primary dropdwon-toggle">
+        Manage Recipe <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu">
+        <li><a routerLink="edit">Edit Details</a></li>
+        <li>
+          <a style="cursor: pointer;" (click)="onDeletePerson()">
+            Remove
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    {{ person.email }}
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    {{ person.country }}
+  </div>
+</div>
+<!-- <div class="row">
+  <div class="col-xs-12">
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let ingredient of recipe.ingredients">
+        {{ ingredient.name + ' -- ' + ingredient.amount }}
+      </li>
+    </ul>
+  </div>
+</div> -->

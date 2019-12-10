@@ -1,0 +1,15 @@
+<div class="row" style="margin-bottom: 10px;">
+  <div class="col-xs-12">
+    <button class="btn btn-success" (click)="addPerson()">Add Person</button>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <app-person-list-item
+      *ngFor="let person of (persons | async).persons; let i = index"
+      [person]="person"
+      [index]="i"
+    >
+    </app-person-list-item>
+  </div>
+</div>
