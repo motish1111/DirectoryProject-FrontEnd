@@ -3,7 +3,15 @@ import { Action } from '@ngrx/store';
 import * as PersonActions from './persons.actions';
 import { isQuote } from '@angular/compiler';
 
-const initialState = {
+export interface State {
+  persons: Person[];
+}
+
+export interface AppState {
+  persons: State;
+}
+
+const initialState: State = {
   persons: [
     new Person(
       1,
@@ -38,19 +46,21 @@ export function personsReducer(
         persons: [...state.persons, ...action.payload]
       };
     case PersonActions.UPDATE_PERSON:
-      const person = state.persons.find(iperson => {
-        return iperson.id === action.payload.index;
-      });
-      const updatedPerson = {
+      // const updatedindex = state.persons.findIndex(iperson => {
+      //   return iperson.id === action.payload.index;
+      // });
+      const updatedindex = action.payload.index;
+      const person = state.persons[updatedindex];
+      let updatedPerson: Person = {
         ...person,
         ...action.payload.person
       };
 
-      const updatedPersons = {
-        ...state.persons
-      };
+      updatedPerson = updatedPerson as Person;
 
-      updatedPersons[action.payload.index] = updatedPerson;
+      const updatedPersons = [...state.persons];
+
+      updatedPersons[updatedindex] = updatedPerson;
 
       return {
         ...state,
@@ -59,8 +69,9 @@ export function personsReducer(
     case PersonActions.DELETE_PERSON:
       return {
         ...state,
-        persons: state.persons.filter(ig => {
-          return ig.id !== action.payload;
+        persons: state.persons.filter((ig, igindex) => {
+          // return ig.id !== action.payload;
+          return igindex !== action.payload;
         })
       };
     default:

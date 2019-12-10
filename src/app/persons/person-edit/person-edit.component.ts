@@ -4,6 +4,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Person } from '../person.model';
 import { Store } from '@ngrx/store';
 import * as PersonActions from '../+state/persons.actions';
+import * as PersonsReducer from '../+state/persons.reducer';
 
 @Component({
   selector: 'app-person-edit',
@@ -11,20 +12,20 @@ import * as PersonActions from '../+state/persons.actions';
   styleUrls: ['./person-edit.component.scss']
 })
 export class PersonEditComponent implements OnInit {
-  personId: number;
+  personIndex: number;
   editMode = false;
   personForm: FormGroup;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private store: Store<{ persons: { persons: Person[] } }>
+    private store: Store<PersonsReducer.AppState>
   ) {}
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
-      if (params.id) {
-        this.personId = +params.id;
+      if (params.index) {
+        this.personIndex = +params.index;
         this.editMode = true;
       } else {
         console.log('new Person');
@@ -38,8 +39,11 @@ export class PersonEditComponent implements OnInit {
     if (this.editMode) {
       this.store.dispatch(
         new PersonActions.UpdatePersonAction({
-          index: this.personId,
-          person: this.personForm.value
+          index: this.personIndex,
+          person: {
+            ...this.personForm.value,
+            dob: new Date(this.personForm.value.dob)
+          }
         })
       );
     } else {
@@ -47,6 +51,7 @@ export class PersonEditComponent implements OnInit {
         new PersonActions.AddPersonAction(this.personForm.value)
       );
     }
+    this.router.navigate(['../'], { relativeTo: this.route });
   }
 
   onCancel() {
@@ -60,17 +65,16 @@ export class PersonEditComponent implements OnInit {
     let personCountry = '';
 
     if (this.editMode) {
-      const person = new Person(
-        1,
-        'motish',
-        'qwerty',
-        new Date('11/11/1997'),
-        'India'
-      );
-      personName = person.name;
-      personEmail = person.email;
-      personDOB = person.dob;
-      personCountry = person.country;
+      this.route.params.subscribe((params: Params) => {
+        const index = +params.index;
+        this.store.select('persons').subscribe(persons => {
+          const person = persons.persons[index];
+          personName = person.name;
+          personEmail = person.email;
+          personDOB = person.dob;
+          personCountry = person.country;
+        });
+      });
     }
     this.personForm = new FormGroup({
       name: new FormControl(personName, Validators.required),
@@ -82,9 +86,13 @@ export class PersonEditComponent implements OnInit {
         personDOB
           ? personDOB.getFullYear() +
             '-' +
-            personDOB.getMonth() +
+            (personDOB.getMonth() + 1 >= 10
+              ? personDOB.getMonth() + 1
+              : '0' + (personDOB.getMonth() + 1)) +
             '-' +
-            personDOB.getDate()
+            (personDOB.getDate() >= 10
+              ? personDOB.getDate()
+              : '0' + personDOB.getDate())
           : null,
         Validators.required
       ),

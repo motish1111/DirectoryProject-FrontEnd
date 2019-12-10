@@ -29,8 +29,8 @@ const appRoutes: Routes = [
     children: [
       { path: '', pathMatch: 'full', component: PersonStartComponent },
       { path: 'new', component: PersonEditComponent },
-      { path: ':id', component: PersonDetailComponent },
-      { path: ':id/edit', component: PersonEditComponent }
+      { path: ':index', component: PersonDetailComponent },
+      { path: ':index/edit', component: PersonEditComponent }
     ]
   }
 ];

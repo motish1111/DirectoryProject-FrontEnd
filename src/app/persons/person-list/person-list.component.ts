@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { PersonService } from '../person.service';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import * as PersonsReducer from '../+state/persons.reducer';
 
 @Component({
   selector: 'app-person-list',
@@ -16,7 +17,7 @@ export class PersonListComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private personService: PersonService,
-    private store: Store<{ persons: { persons: Person[] } }>
+    private store: Store<PersonsReducer.AppState>
   ) {}
 
   ngOnInit() {

@@ -15,6 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { personsReducer } from './persons/+state/persons.reducer';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AgePipe } from './age.pipe';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     PersonListComponent,
     PersonListItemComponent,
     HeaderComponent,
-    DropdownDirective
+    DropdownDirective,
+    AgePipe
   ],
   imports: [
     BrowserModule,
