@@ -13,6 +13,7 @@ import * as PersonsReducer from '../+state/persons.reducer';
 })
 export class PersonEditComponent implements OnInit {
   personIndex: number;
+  personId: number;
   editMode = false;
   personForm: FormGroup;
 
@@ -38,18 +39,17 @@ export class PersonEditComponent implements OnInit {
   onSubmit() {
     if (this.editMode) {
       this.store.dispatch(
-        new PersonActions.UpdatePersonAction({
+        new PersonActions.UpdatePerson({
           index: this.personIndex,
           person: {
             ...this.personForm.value,
-            dob: new Date(this.personForm.value.dob)
+            dob: new Date(this.personForm.value.dob),
+            id: this.personId
           }
         })
       );
     } else {
-      this.store.dispatch(
-        new PersonActions.AddPersonAction(this.personForm.value)
-      );
+      this.store.dispatch(new PersonActions.AddPerson(this.personForm.value));
     }
     this.router.navigate(['../'], { relativeTo: this.route });
   }
@@ -73,6 +73,7 @@ export class PersonEditComponent implements OnInit {
           personEmail = person.email;
           personDOB = new Date(person.dob);
           personCountry = person.country;
+          this.personId = person.id;
         });
       });
     }

@@ -41,7 +41,7 @@ export function personsReducer(
         ...state,
         persons: [...action.payload]
       };
-    case PersonActions.ADD_PERSON:
+    case PersonActions.ADD_PERSON_SUCCEESS:
       return {
         ...state,
         persons: [...state.persons, action.payload]
@@ -51,10 +51,7 @@ export function personsReducer(
         ...state,
         persons: [...state.persons, ...action.payload]
       };
-    case PersonActions.UPDATE_PERSON:
-      // const updatedindex = state.persons.findIndex(iperson => {
-      //   return iperson.id === action.payload.index;
-      // });
+    case PersonActions.UPDATE_PERSON_SUCCESS:
       const updatedindex = action.payload.index;
       const person = state.persons[updatedindex];
       let updatedPerson: Person = {
@@ -72,7 +69,7 @@ export function personsReducer(
         ...state,
         persons: updatedPersons
       };
-    case PersonActions.DELETE_PERSON:
+    case PersonActions.DELETE_PERSON_SUCCESS:
       return {
         ...state,
         persons: state.persons.filter((ig, igindex) => {

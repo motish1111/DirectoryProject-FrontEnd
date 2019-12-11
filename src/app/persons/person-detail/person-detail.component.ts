@@ -32,8 +32,10 @@ export class PersonDetailComponent implements OnInit {
     });
   }
   onDeletePerson() {
+    this.store.dispatch(
+      new PersonActions.DeletePerson({ index: this.index, id: this.person.id })
+    );
     this.person = null;
-    this.store.dispatch(new PersonActions.DeletePersonAction(this.index));
     this.router.navigate(['..'], { relativeTo: this.route });
   }
 }
