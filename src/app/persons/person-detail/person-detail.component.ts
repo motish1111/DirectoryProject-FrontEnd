@@ -12,6 +12,7 @@ import { PersonService } from '../person.service';
 export class PersonDetailComponent implements OnInit {
   person: Person;
   id: number;
+  isDeletedPerson: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -20,8 +21,13 @@ export class PersonDetailComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.isDeletedPerson = false;
     this.getPerson();
-    this.personService.personListChanged.subscribe(() => this.getPerson());
+    this.personService.personListChanged.subscribe(() => {
+      if (!this.isDeletedPerson) {
+        this.getPerson();
+      }
+    });
   }
 
   getPerson() {
@@ -39,7 +45,9 @@ export class PersonDetailComponent implements OnInit {
 
   onDeletePerson() {
     this.person = null;
+    this.isDeletedPerson = true;
     // this.store.dispatch(new PersonActions.DeletePersonAction(this.index));
+    this.personService.deletePerson(this.id);
     this.router.navigate(['..'], { relativeTo: this.route });
   }
 }

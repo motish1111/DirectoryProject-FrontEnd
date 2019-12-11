@@ -21,17 +21,12 @@ export class PersonListComponent implements OnInit {
   ngOnInit() {
     this.getPersonList();
     this.personService.personListChanged.subscribe(() => {
-      console.log('updated');
       this.getPersonList();
     });
   }
 
   getPersonList() {
-    console.log('new Person List');
     this.persons = this.personService.getPersonsList();
-    this.persons.subscribe(personsList => {
-      console.log(personsList);
-    });
   }
 
   addPerson() {

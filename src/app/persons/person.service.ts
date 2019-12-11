@@ -58,5 +58,20 @@ export class PersonService {
       );
   }
 
+  deletePerson(id: number) {
+    this.http
+      .delete<Person>('https://localhost:5001/api/persons/' + id)
+      .subscribe(
+        person2 => {
+          console.log('Deleted ' + person2.name);
+          this.personListChanged.next();
+        },
+        error => {
+          console.log('error ');
+          console.log(error);
+        }
+      );
+  }
+
   constructor(private http: HttpClient) {}
 }
