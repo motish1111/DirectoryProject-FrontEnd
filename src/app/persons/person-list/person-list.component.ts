@@ -4,8 +4,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { PersonService } from '../person.service';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import * as PersonActions from '../+state/persons.actions';
-import * as PersonsReducer from '../+state/persons.reducer';
 
 @Component({
   selector: 'app-person-list',
@@ -13,21 +11,27 @@ import * as PersonsReducer from '../+state/persons.reducer';
   styleUrls: ['./person-list.component.scss']
 })
 export class PersonListComponent implements OnInit {
-  persons: Observable<{ persons: Person[] }>;
+  persons: Observable<Person[]>;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private personService: PersonService,
-    private store: Store<PersonsReducer.AppState>
+    private personService: PersonService
   ) {}
 
   ngOnInit() {
-    this.store.dispatch(new PersonActions.LoadPersons());
-    this.persons = this.store.select('persons');
-    // this.persons = this.personService.getPersons();
-    // this.personService
-    //   .getPersonsList()
-    //   .subscribe(response => (this.persons = response));
+    this.getPersonList();
+    this.personService.personListChanged.subscribe(() => {
+      console.log('updated');
+      this.getPersonList();
+    });
+  }
+
+  getPersonList() {
+    console.log('new Person List');
+    this.persons = this.personService.getPersonsList();
+    this.persons.subscribe(personsList => {
+      console.log(personsList);
+    });
   }
 
   addPerson() {

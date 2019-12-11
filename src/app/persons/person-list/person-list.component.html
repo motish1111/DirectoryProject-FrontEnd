@@ -6,9 +6,9 @@
 <div class="row">
   <div class="col-xs-12">
     <app-person-list-item
-      *ngFor="let person of (persons | async).persons; let i = index"
+      *ngFor="let person of persons | async"
       [person]="person"
-      [index]="i"
+      [id]="person.id"
     >
     </app-person-list-item>
   </div>

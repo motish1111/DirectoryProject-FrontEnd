@@ -12,12 +12,8 @@ import { PersonListItemComponent } from './persons/person-list/person-list-item/
 import { HeaderComponent } from './header/header.component';
 import { DropdownDirective } from './shared/dropdown/dropdown.directive';
 import { HttpClientModule } from '@angular/common/http';
-import { StoreModule } from '@ngrx/store';
-import { personsReducer } from './persons/+state/persons.reducer';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AgePipe } from './age.pipe';
-import { EffectsModule } from '@ngrx/effects';
-import { PersonsEffects } from './persons/+state/persons.effects';
 
 @NgModule({
   declarations: [
@@ -35,8 +31,6 @@ import { PersonsEffects } from './persons/+state/persons.effects';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    StoreModule.forRoot({ persons: personsReducer }),
-    EffectsModule.forRoot([PersonsEffects]),
     ReactiveFormsModule,
     HttpClientModule
   ],

@@ -8,7 +8,7 @@ import { Person } from '../../person.model';
 })
 export class PersonListItemComponent implements OnInit {
   @Input() person: Person;
-  @Input() index: boolean;
+  @Input() id: boolean;
 
   constructor() {}
 
