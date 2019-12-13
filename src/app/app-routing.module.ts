@@ -21,7 +21,7 @@ import { PersonStartComponent } from './persons/person-start/person-start.compon
 //   { path: 'shopping-list', component: ShoppingListComponent }
 // ];
 
-const appRoutes: Routes = [
+export const appRoutes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'persons' },
   {
     path: 'persons',

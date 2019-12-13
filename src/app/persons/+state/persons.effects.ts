@@ -17,7 +17,6 @@ export class PersonsEffects {
           return new PersonActions.LoadPersonsSuccess(resData);
         }),
         catchError(error => {
-          console.log('error');
           return of();
         })
       );

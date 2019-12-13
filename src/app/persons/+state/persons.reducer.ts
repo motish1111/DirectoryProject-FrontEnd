@@ -12,22 +12,7 @@ export interface AppState {
 }
 
 const initialState: State = {
-  persons: [
-    new Person(
-      1,
-      'Motish',
-      'motish.mehta@varian.com',
-      new Date('11/11/1997'),
-      'India'
-    ),
-    new Person(
-      2,
-      'Atul',
-      'atul.gunjal@varian.com',
-      new Date('07/01/1997'),
-      'India'
-    )
-  ]
+  persons: []
 };
 
 export function personsReducer(

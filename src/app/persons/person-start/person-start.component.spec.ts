@@ -8,14 +8,13 @@ describe('PersonStartComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PersonStartComponent ]
-    })
-    .compileComponents();
+      declarations: [PersonStartComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(PersonStartComponent);
-    component = fixture.componentInstance;
+    component = fixture.debugElement.componentInstance;
     fixture.detectChanges();
   });
 

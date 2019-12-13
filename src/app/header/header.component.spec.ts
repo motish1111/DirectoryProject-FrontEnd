@@ -8,18 +8,27 @@ describe('HeaderComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HeaderComponent ]
-    })
-    .compileComponents();
+      declarations: [HeaderComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(HeaderComponent);
-    component = fixture.componentInstance;
+    component = fixture.debugElement.componentInstance;
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it(`should have title 'My Directory'`, () => {
+    expect(component.title).toEqual('My Directory');
+  });
+
+  it(`should display title 'My Directory'`, () => {
+    expect(
+      fixture.debugElement.nativeElement.querySelector('a').textContent
+    ).toContain('My Directory');
   });
 });

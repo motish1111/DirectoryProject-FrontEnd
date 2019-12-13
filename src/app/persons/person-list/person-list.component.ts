@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Person } from '../person.model';
 import { Router, ActivatedRoute } from '@angular/router';
-import { PersonService } from '../person.service';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import * as PersonActions from '../+state/persons.actions';
@@ -17,17 +16,12 @@ export class PersonListComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private personService: PersonService,
     private store: Store<PersonsReducer.AppState>
   ) {}
 
   ngOnInit() {
     this.store.dispatch(new PersonActions.LoadPersons());
     this.persons = this.store.select('persons');
-    // this.persons = this.personService.getPersons();
-    // this.personService
-    //   .getPersonsList()
-    //   .subscribe(response => (this.persons = response));
   }
 
   addPerson() {

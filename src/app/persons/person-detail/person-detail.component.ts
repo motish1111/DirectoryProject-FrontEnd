@@ -31,6 +31,7 @@ export class PersonDetailComponent implements OnInit {
       });
     });
   }
+
   onDeletePerson() {
     this.store.dispatch(
       new PersonActions.DeletePerson({ index: this.index, id: this.person.id })
