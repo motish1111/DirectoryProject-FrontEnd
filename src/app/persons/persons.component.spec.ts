@@ -4,41 +4,25 @@ import { PersonsComponent } from './persons.component';
 import { PersonListComponent } from './person-list/person-list.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { PersonListItemComponent } from './person-list/person-list-item/person-list-item.component';
-import { MockStore, provideMockStore } from '@ngrx/store/testing';
-import { Person } from './person.model';
+import * as PersonsReducer from './+state/persons.reducer';
+import { StoreModule } from '@ngrx/store';
 
 describe('PersonsComponent', () => {
   let component: PersonsComponent;
   let fixture: ComponentFixture<PersonsComponent>;
 
-  const initialState = {
-    persons: [
-      new Person(
-        1,
-        'Motish',
-        'motish.mehta@varian.com',
-        new Date('11/11/1997'),
-        'India'
-      ),
-      new Person(
-        2,
-        'Atul',
-        'atul.gunjal@varian.com',
-        new Date('07/01/1997'),
-        'India'
-      )
-    ]
-  };
-
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
+      imports: [
+        RouterTestingModule,
+        StoreModule.forRoot({ persons: PersonsReducer.personsReducer })
+      ],
       declarations: [
         PersonsComponent,
         PersonListComponent,
         PersonListItemComponent
       ],
-      providers: [provideMockStore({ initialState })]
+      providers: []
     }).compileComponents();
   }));
 

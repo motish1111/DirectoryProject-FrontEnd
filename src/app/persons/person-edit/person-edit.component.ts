@@ -36,6 +36,20 @@ export class PersonEditComponent implements OnInit {
     this.initForm();
   }
 
+  getDobString(personDOB: Date): string {
+    return (
+      personDOB.getFullYear() +
+      '-' +
+      (personDOB.getMonth() + 1 >= 10
+        ? personDOB.getMonth() + 1
+        : '0' + (personDOB.getMonth() + 1)) +
+      '-' +
+      (personDOB.getDate() >= 10
+        ? personDOB.getDate()
+        : '0' + personDOB.getDate())
+    );
+  }
+
   onSubmit() {
     if (this.editMode) {
       this.store.dispatch(
@@ -84,17 +98,7 @@ export class PersonEditComponent implements OnInit {
         Validators.email
       ]),
       dob: new FormControl(
-        personDOB
-          ? personDOB.getFullYear() +
-            '-' +
-            (personDOB.getMonth() + 1 >= 10
-              ? personDOB.getMonth() + 1
-              : '0' + (personDOB.getMonth() + 1)) +
-            '-' +
-            (personDOB.getDate() >= 10
-              ? personDOB.getDate()
-              : '0' + personDOB.getDate())
-          : null,
+        personDOB ? this.getDobString(personDOB) : null,
         Validators.required
       ),
       country: new FormControl(personCountry)

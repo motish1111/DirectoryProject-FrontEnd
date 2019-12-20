@@ -1,41 +1,26 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PersonEditComponent } from './person-edit.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MockStore, provideMockStore } from '@ngrx/store/testing';
-import { Person } from '../person.model';
 import { ActivatedRoute } from '@angular/router';
+import { StoreModule } from '@ngrx/store';
+import * as PersonsReducer from '../+state/persons.reducer';
 
 describe('PersonEditComponent', () => {
   let component: PersonEditComponent;
   let fixture: ComponentFixture<PersonEditComponent>;
   let route: ActivatedRoute;
 
-  const initialState = {
-    persons: [
-      new Person(
-        1,
-        'Motish',
-        'motish.mehta@varian.com',
-        new Date('11/11/1997'),
-        'India'
-      ),
-      new Person(
-        2,
-        'Atul',
-        'atul.gunjal@varian.com',
-        new Date('07/01/1997'),
-        'India'
-      )
-    ]
-  };
-
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule, RouterTestingModule],
+      imports: [
+        ReactiveFormsModule,
+        RouterTestingModule,
+        StoreModule.forRoot({ persons: PersonsReducer.personsReducer })
+      ],
       declarations: [PersonEditComponent],
-      providers: [provideMockStore({ initialState })]
+      providers: []
     }).compileComponents();
   }));
 

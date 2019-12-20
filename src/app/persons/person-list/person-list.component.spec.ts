@@ -4,9 +4,7 @@ import { PersonListComponent } from './person-list.component';
 import { PersonListItemComponent } from './person-list-item/person-list-item.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Person } from '../person.model';
-import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { Store, StoreModule } from '@ngrx/store';
-import * as PersonActions from '../+state/persons.actions';
 import * as PersonsReducer from '../+state/persons.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { PersonsEffects } from '../+state/persons.effects';
@@ -44,7 +42,8 @@ describe('PersonListComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('Should be Empty initially', () => {
+  it('Should have an empty persons list initially', () => {
+    // Keep it Non-Empty initially
     let lpersonList = [
       new Person(
         1,
@@ -55,14 +54,13 @@ describe('PersonListComponent', () => {
       )
     ];
     component.persons.subscribe(personList => {
+      // Get Empty List, as store is empty (loadpersons is not called)
       lpersonList = personList.persons;
-      console.log('---------------------');
     });
-    console.log(lpersonList);
     expect(lpersonList).toStrictEqual([]);
   });
 
-  it('loadAll() should return empty list with success == true', async done => {
+  it('Should load persons list after init', async done => {
     jest
       .spyOn(http, 'get')
       .mockReturnValue(
@@ -83,7 +81,7 @@ describe('PersonListComponent', () => {
           )
         ])
       );
-
+    // OnInit loads persons list from server (mocked for this test)
     component.ngOnInit();
     fixture.detectChanges();
 
@@ -91,10 +89,8 @@ describe('PersonListComponent', () => {
     component.persons.subscribe(personList => {
       lpersonList = personList.persons;
     });
-    console.log(lpersonList);
+    // Ensure non-empty list
     expect(lpersonList).not.toStrictEqual([]);
-
-    expect(component.persons).not.toBeNull();
     done();
   });
 });

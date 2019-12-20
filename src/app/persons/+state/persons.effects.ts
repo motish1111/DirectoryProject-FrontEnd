@@ -5,14 +5,17 @@ import { switchMap, catchError, map } from 'rxjs/operators';
 import { Person } from '../person.model';
 import { HttpClient } from '@angular/common/http';
 import { of } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class PersonsEffects {
+  private $baseUrl = environment.API_URL;
+
   @Effect()
   loadPersons$ = this.actions$.pipe(
     ofType(PersonActions.LOAD_PERSONS),
     switchMap(() => {
-      return this.http.get<Person[]>('https://localhost:5001/api/persons').pipe(
+      return this.http.get<Person[]>(this.$baseUrl + '/api/persons').pipe(
         map(resData => {
           return new PersonActions.LoadPersonsSuccess(resData);
         }),
@@ -28,7 +31,7 @@ export class PersonsEffects {
     ofType(PersonActions.ADD_PERSON),
     switchMap((data: PersonActions.AddPerson) => {
       return this.http
-        .post<Person>('https://localhost:5001/api/persons', data.payload)
+        .post<Person>(this.$baseUrl + '/api/persons', data.payload)
         .pipe(
           map(resData => {
             return new PersonActions.AddPersonSuccess(resData);
@@ -49,7 +52,7 @@ export class PersonsEffects {
       console.log(data.payload);
       return this.http
         .put<Person>(
-          'https://localhost:5001/api/persons/' + data.payload.person.id,
+          this.$baseUrl + '/api/persons/' + data.payload.person.id,
           data.payload.person
         )
         .pipe(
@@ -73,7 +76,7 @@ export class PersonsEffects {
     switchMap((data: PersonActions.DeletePerson) => {
       console.log('Delete');
       return this.http
-        .delete<Person>('https://localhost:5001/api/persons/' + data.payload.id)
+        .delete<Person>(this.$baseUrl + '/api/persons/' + data.payload.id)
         .pipe(
           map(resData => {
             return new PersonActions.DeletePersonSuccess(data.payload.index);

@@ -20,7 +20,6 @@ export class PersonListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.store.dispatch(new PersonActions.LoadPersons());
     this.persons = this.store.select('persons');
   }
 

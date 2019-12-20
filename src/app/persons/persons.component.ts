@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import * as PersonActions from './+state/persons.actions';
+import * as PersonsReducer from './+state/persons.reducer';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-persons',
@@ -7,7 +10,9 @@ import { Component, OnInit } from '@angular/core';
   providers: []
 })
 export class PersonsComponent implements OnInit {
-  constructor() {}
+  constructor(private store: Store<PersonsReducer.AppState>) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.store.dispatch(new PersonActions.LoadPersons());
+  }
 }
