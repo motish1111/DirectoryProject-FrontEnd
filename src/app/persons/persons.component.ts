@@ -12,7 +12,5 @@ import { Store } from '@ngrx/store';
 export class PersonsComponent implements OnInit {
   constructor(private store: Store<PersonsReducer.AppState>) {}
 
-  ngOnInit() {
-    this.store.dispatch(new PersonActions.LoadPersons());
-  }
+  ngOnInit() {}
 }
