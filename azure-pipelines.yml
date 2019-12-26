@@ -28,7 +28,7 @@ steps:
 - task: Npm@1
   inputs:
     command: 'custom'
-    customCommand: 'run build --prod  --configuration=azure-webapp'
+    customCommand: 'run build -- --prod  --configuration=azure-webapp'
 
 - task: CopyFiles@2
   inputs:
