@@ -26,9 +26,16 @@ steps:
     command: 'install'
 
 - task: Npm@1
+  displayName: 'Build'
   inputs:
     command: 'custom'
     customCommand: 'run build -- --prod  --configuration=azure-webapp'
+
+- task: Npm@1
+  displayName: 'Test'
+  inputs:
+    command: 'custom'
+    customCommand: 'run test'
 
 - task: CopyFiles@2
   inputs:
@@ -45,6 +52,7 @@ steps:
     publishLocation: 'pipeline'
 
 - task: Docker@2
+  displayName: 'Docker Login'
   inputs:
     command: login
     containerRegistry: $(containerRegistryServiceConnection)
