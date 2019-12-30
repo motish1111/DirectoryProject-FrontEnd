@@ -29,7 +29,7 @@ steps:
   displayName: 'Build'
   inputs:
     command: 'custom'
-    customCommand: 'run build -- --prod  --configuration=azure-webapp'
+    customCommand: 'run build -- --prod'
 
 - task: Npm@1
   displayName: 'Test'
