@@ -5,17 +5,17 @@ import { switchMap, catchError, map } from 'rxjs/operators';
 import { Person } from '../person.model';
 import { HttpClient } from '@angular/common/http';
 import { of } from 'rxjs';
-import { environment } from '../../../environments/environment';
+import { ConfigService } from 'src/app/config.service';
 
 @Injectable()
 export class PersonsEffects {
-  private $baseUrl = environment.API_URL;
+  private $baseUrl;
 
   @Effect()
   loadPersons$ = this.actions$.pipe(
     ofType(PersonActions.LOAD_PERSONS),
     switchMap(() => {
-      return this.http.get<Person[]>(this.$baseUrl + '/api/persons').pipe(
+      return this.http.get<Person[]>(this.config.baseUrl + '/api/persons').pipe(
         map(resData => {
           return new PersonActions.LoadPersonsSuccess(resData);
         }),
@@ -89,5 +89,9 @@ export class PersonsEffects {
     })
   );
 
-  constructor(private actions$: Actions, private http: HttpClient) {}
+  constructor(
+    private actions$: Actions,
+    private http: HttpClient,
+    private config: ConfigService
+  ) {}
 }
