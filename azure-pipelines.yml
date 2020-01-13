@@ -42,6 +42,7 @@ steps:
     Contents: |
       dist/**
       nginx.conf
+      startup.sh
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
     CleanTargetFolder: true
 
