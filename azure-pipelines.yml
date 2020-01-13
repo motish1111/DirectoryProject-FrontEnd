@@ -29,7 +29,7 @@ steps:
   displayName: 'Build'
   inputs:
     command: 'custom'
-    customCommand: 'run build -- --prod'
+    customCommand: 'run build -- --prod --output-hashing none'
 
 - task: Npm@1
   displayName: 'Test'
