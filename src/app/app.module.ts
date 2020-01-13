@@ -21,6 +21,7 @@ import { PersonsEffects } from './persons/+state/persons.effects';
 import { ConfigService } from './config.service';
 import { map, catchError } from 'rxjs/operators';
 import { Observable, ObservableInput, of, throwError } from 'rxjs';
+import { APP_BASE_HREF } from '@angular/common';
 
 export function load(
   http: HttpClient,
@@ -87,7 +88,8 @@ export function load(
       useFactory: load,
       multi: true,
       deps: [HttpClient, ConfigService]
-    }
+    },
+    { provide: APP_BASE_HREF, useValue: window['baseHref'] }
   ],
   bootstrap: [AppComponent]
 })

@@ -9,7 +9,6 @@ import { ConfigService } from 'src/app/config.service';
 
 @Injectable()
 export class PersonsEffects {
-  private $baseUrl;
 
   @Effect()
   loadPersons$ = this.actions$.pipe(
@@ -31,7 +30,7 @@ export class PersonsEffects {
     ofType(PersonActions.ADD_PERSON),
     switchMap((data: PersonActions.AddPerson) => {
       return this.http
-        .post<Person>(this.$baseUrl + '/api/persons', data.payload)
+        .post<Person>(this.config.baseUrl + '/api/persons', data.payload)
         .pipe(
           map(resData => {
             return new PersonActions.AddPersonSuccess(resData);
@@ -52,7 +51,7 @@ export class PersonsEffects {
       console.log(data.payload);
       return this.http
         .put<Person>(
-          this.$baseUrl + '/api/persons/' + data.payload.person.id,
+          this.config.baseUrl + '/api/persons/' + data.payload.person.id,
           data.payload.person
         )
         .pipe(
@@ -76,7 +75,7 @@ export class PersonsEffects {
     switchMap((data: PersonActions.DeletePerson) => {
       console.log('Delete');
       return this.http
-        .delete<Person>(this.$baseUrl + '/api/persons/' + data.payload.id)
+        .delete<Person>(this.config.baseUrl + '/api/persons/' + data.payload.id)
         .pipe(
           map(resData => {
             return new PersonActions.DeletePersonSuccess(data.payload.index);
